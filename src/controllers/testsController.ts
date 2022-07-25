@@ -20,9 +20,9 @@ async function getTests(req: Request, res: Response) {
   if (groupBy === "disciplines") {
     const tests = await testsService.getTestsGroupedByDisciplines();
     res.send({ tests });
-    // } else if (groupBy === "teachers") {
-    //   const tests = await testsService.getTestsGroupedByTeachers();
-    //   res.send({ tests });
+  } else if (groupBy === "teachers") {
+    const tests = await testsService.getTestsGroupedByTeachers();
+    res.send({ tests });
   } else {
     throw {
       type: "error_invalid_parameter",

@@ -52,6 +52,11 @@ async function getTestsGroupedByDisciplines() {
   return tests;
 }
 
+async function getTestsGroupedByTeachers() {
+  const tests = await testsRepository.getTestsGroupedByTeachers();
+  return tests;
+}
+
 async function getCategories() {
   const categories = await testsRepository.getCategories();
   return categories;
@@ -61,5 +66,6 @@ const testsService = {
   createTest,
   getTestsGroupedByDisciplines,
   getCategories,
+  getTestsGroupedByTeachers,
 };
 export default testsService;

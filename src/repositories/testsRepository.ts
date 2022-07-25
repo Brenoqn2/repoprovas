@@ -64,6 +64,21 @@ async function getTestsGroupedByDisciplines() {
   return tests;
 }
 
+async function getTestsGroupedByTeachers() {
+  const tests = await prisma.teachersDisciplines.findMany({
+    include: {
+      teacher: true,
+      discipline: true,
+      tests: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
+  return tests;
+}
+
 async function getCategories() {
   const categories = await prisma.categories.findMany();
   return categories;
@@ -77,5 +92,6 @@ const testsRepository = {
   getDisciplineById,
   getTestsGroupedByDisciplines,
   getCategories,
+  getTestsGroupedByTeachers,
 };
 export default testsRepository;
