@@ -1,4 +1,4 @@
-import prisma from "../src/database";
+import prisma from "../src/database.js";
 
 async function main() {
   await prisma.terms.createMany({

@@ -8,6 +8,20 @@ export interface CreateTest {
 }
 
 async function createTest(test: CreateTest) {
+  const discipline = await testsRepository.getDisciplineById(test.disciplineId);
+  if (!discipline) {
+    throw {
+      type: "error_not_found",
+      message: "Discipline not found",
+    };
+  }
+  const teacher = await testsRepository.getTeacherById(test.teacherId);
+  if (!teacher) {
+    throw {
+      type: "error_not_found",
+      message: "Teacher not found",
+    };
+  }
   const teacherDisciplineId = await testsRepository.getTeachersDisciplinesId(
     test.teacherId,
     test.disciplineId
