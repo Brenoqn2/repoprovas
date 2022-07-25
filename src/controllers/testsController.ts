@@ -15,5 +15,26 @@ async function createTest(req: Request, res: Response) {
   res.sendStatus(201);
 }
 
-const testsController = { createTest };
+async function getTests(req: Request, res: Response) {
+  const { groupBy } = req.query;
+  if (groupBy === "disciplines") {
+    const tests = await testsService.getTestsGroupedByDisciplines();
+    res.send({ tests });
+    // } else if (groupBy === "teachers") {
+    //   const tests = await testsService.getTestsGroupedByTeachers();
+    //   res.send({ tests });
+  } else {
+    throw {
+      type: "error_invalid_parameter",
+      message: "Invalid parameter",
+    };
+  }
+}
+
+async function getCategories(req: Request, res: Response) {
+  const categories = await testsService.getCategories();
+  res.send({ categories });
+}
+
+const testsController = { createTest, getTests, getCategories };
 export default testsController;

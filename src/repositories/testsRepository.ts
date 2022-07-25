@@ -41,11 +41,41 @@ async function createTest(test: CreateTest) {
   });
 }
 
+async function getTestsGroupedByDisciplines() {
+  const tests = await prisma.terms.findMany({
+    include: {
+      disciplines: {
+        include: {
+          teacherDisciplines: {
+            include: {
+              tests: {
+                include: {
+                  category: true,
+                },
+              },
+              teacher: true,
+              discipline: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return tests;
+}
+
+async function getCategories() {
+  const categories = await prisma.categories.findMany();
+  return categories;
+}
+
 const testsRepository = {
   createTest,
   getTeachersDisciplinesId,
   getCategoryById,
   getTeacherById,
   getDisciplineById,
+  getTestsGroupedByDisciplines,
+  getCategories,
 };
 export default testsRepository;

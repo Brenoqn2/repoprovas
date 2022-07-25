@@ -12,4 +12,7 @@ testsRouter.post(
   testsController.createTest
 );
 
+testsRouter.get("/tests", validateJWT, testsController.getTests);
+testsRouter.get("/categories", validateJWT, testsController.getCategories);
+
 export default testsRouter;

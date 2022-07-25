@@ -22,6 +22,9 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.log(err.message);
     return res.status(500).send("Something went wrong");
   }
+  if (err.type === "error_invalid_parameter") {
+    return res.status(400).send(err.message);
+  }
 
   res.status(500).send("Something broke!");
 

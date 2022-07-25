@@ -47,5 +47,19 @@ async function createTest(test: CreateTest) {
   });
 }
 
-const testsService = { createTest };
+async function getTestsGroupedByDisciplines() {
+  const tests = await testsRepository.getTestsGroupedByDisciplines();
+  return tests;
+}
+
+async function getCategories() {
+  const categories = await testsRepository.getCategories();
+  return categories;
+}
+
+const testsService = {
+  createTest,
+  getTestsGroupedByDisciplines,
+  getCategories,
+};
 export default testsService;
