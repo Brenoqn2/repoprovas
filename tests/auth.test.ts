@@ -24,7 +24,9 @@ describe("POST /sign-up", () => {
 
   it("given already used email, should return 409", async () => {
     const body = generateSignUpBody();
-    await agent.post("/sign-up").send(body);
+    await prisma.users.create({
+      data: body,
+    });
     const response = await agent.post("/sign-up").send(body);
     expect(response.status).toBe(409);
   });

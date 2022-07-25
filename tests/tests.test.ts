@@ -92,4 +92,47 @@ describe("POST /tests", () => {
       .send(body);
     expect(response.status).toBe(404);
   });
+
+  it("given disciplines groupBy parameter, should return 200", async () => {
+    const token = generateToken();
+    const response = await agent
+      .get("/tests")
+      .set("Authorization", `Bearer ${token}`)
+      .query({ groupBy: "disciplines" });
+    expect(response.status).toBe(200);
+  });
+
+  it("given teachers groupBy parameter, should return 200", async () => {
+    const token = generateToken();
+    const response = await agent
+      .get("/tests")
+      .set("Authorization", `Bearer ${token}`)
+      .query({ groupBy: "teachers" });
+    expect(response.status).toBe(200);
+  });
+
+  it("given any other groupBy parameter, should return 400", async () => {
+    const token = generateToken();
+    const response = await agent
+      .get("/tests")
+      .set("Authorization", `Bearer ${token}`)
+      .query({ groupBy: "any" });
+    expect(response.status).toBe(400);
+  });
+
+  it("not given groupBy parameter, should return 400", async () => {
+    const token = generateToken();
+    const response = await agent
+      .get("/tests")
+      .set("Authorization", `Bearer ${token}`)
+      .query({});
+    expect(response.status).toBe(400);
+  });
+
+  it("not given token, should return 401", async () => {
+    const response = await agent
+      .get("/tests")
+      .query({ groupBy: "disciplines" });
+    expect(response.status).toBe(401);
+  });
 });
